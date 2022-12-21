@@ -61,6 +61,6 @@ for(int i=0;i<n;++i)
 	  return th;
   }
   pthread_join(ptid[i], NULL);
-  pthread_exit(NULL);
 }
+  pthread_exit(NULL);
 }
