@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+#include <fcntl.h>
+#include <unistd.h>
+#include <pthread.h>
+
+struct Operations
+{
+  int a;
+  int b;
+  std::string op;
+  int index;
+}
+
+void* routine(void* arg)
+{
+  int res;
+  Operation* operation = (Operations*) arg
+  if(operation -> op == "s")
+  {
+	  result = operation -> a + operation -> b;
+  }
+  else if(operation -> operation == "m")
+  {
+	  result = operation -> a * operation -> b;
+  }
+  else if(operation -> operation == "ss")
+  {
+	  result = (operation -> a * operation -> a) + (operation -> b * operation -> b);
+  }
+  else
+  {
+     std::cout << "No such operation!\n";
+  }
+  std::string res;
+  result = std::to_string(operation -> a) + " " + operation -> op + " " + std::to_string(operation -> b) + " = " + std::to_string(res);
+  std::string file = "out_";
+  file += std::to_string(operation -> index);
+  int fd = open(file.c_str(), O_RDWR | O_CREAT, 0644);
+  write(fd, result.c_str(), result.size());
+  close(fd);
+  ++(operation -> index);
+  return NULL;
+}
+
+int main(){
+
+int n;
+std::cin>>n;
+pthread_t ptid[n];
+Operations operations [n];
+for(int i=0;i<n;++i)
+{
+  operations[i].index = i + 1;	
+  std::cin>>operations[i].a>>operations[i].b>>operations[i].op;
+  int th = pthread_create(&ptid[i], NULL, files, &operations[i]);
+  if(th != 0)
+  {
+	  std::cerr<<"Could not create thread"<<" ";
+	  return th;
+  }
+   for(i = 0; i < N; i++)
+	  pthread_join(ptid[i], NULL);
+   pthread_exit(NULL);
+}
